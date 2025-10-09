@@ -1,8 +1,8 @@
 # S3K Barocq Benchmarking Suite
 
 Clone the repository with submodules:
-```
-git clone git@github.com:HAKarlsson/s3k-barocq-bench --
+```bash
+git clone --recursive git@github.com:HAKarlsson/s3k-barocq-bench.git
 ```
 
 ## Build toolchain
