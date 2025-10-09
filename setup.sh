@@ -19,8 +19,8 @@ esac
 rm -rf build
 
 # Setup C S3K
-meson setup build/s3k s3k/kernel --optimization=2 --buildtype=release --cross-file=$CROSS -Dplat=$PLATFORM
-ninja -C build/s3k s3k.elf
+meson setup build/s3k-c s3k-c/kernel --optimization=2 --buildtype=release --cross-file=$CROSS -Dplat=$PLATFORM
+ninja -C build/s3k-c s3k-c.elf
 
 # Setup Barocq S3K
 meson setup build/s3k-barocq s3k-barocq/kernel --optimization=2 --buildtype=release --cross-file=$CROSS -Dplat=$PLATFORM

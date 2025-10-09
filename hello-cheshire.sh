@@ -7,8 +7,8 @@ then
 	echo "Barocq Kernel"
 elif [[ "$1" == "c" ]]
 then
-	KERNEL=build/s3k/s3k.elf
-	ninja -C build/s3k s3k.elf
+	KERNEL=build/s3k-c/s3k.elf
+	ninja -C build/s3k-c s3k.elf
 	echo "C Kernel"
 else
 	echo "You have not selected a kernel"

@@ -1,5 +1,10 @@
 # S3K Barocq Benchmarking Suite
 
+Clone the repository with submodules:
+```
+git clone git@github.com:HAKarlsson/s3k-barocq-bench --
+```
+
 ## Build toolchain
 
 The toolchain required for this benchmarking suite can be built using a docker container.
