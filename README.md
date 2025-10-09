@@ -35,12 +35,12 @@ This commands will create build directories in `build/`.
 
 Run a simple hello world example:
 ```bash
-./hello-qemu.sh barocq
-./hello-qemu.sh c
+./hello.sh barocq qemu
+./hello.sh c qemu
 ```
 
 Run the IPC benchmark:
 ```bash
-./ipc-qemu.sh barocq
-./ipc-qemu.sh c
+./ipc.sh barocq qemu
+./ipc.sh c qemu
 ```
