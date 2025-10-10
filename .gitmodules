@@ -1,8 +1,0 @@
-[submodule "s3k-c"]
-	path = s3k-c
-	url = git@github.com:HAKarlsson/s3k-barocq.git
-	branch = c 
-[submodule "s3k-barocq"]
-	path = s3k-barocq
-	url = git@github.com:HAKarlsson/s3k-barocq.git
-	branch = barocq
