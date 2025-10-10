@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 case "$1" in
  barocq|c)
 	ninja -C build/s3k-$1 s3k.elf

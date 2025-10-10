@@ -1,8 +1,10 @@
 #!/bin/bash
 
+set -e
+
 case "$1" in
  barocq|c)
-	ninja -C build/s3k-$1 s3k.elf
+	ninja -C build/s3k-$1 s3k.elf s3k.da
 	export KERNEL=build/s3k-$1/s3k.elf
 	;;
  *)
