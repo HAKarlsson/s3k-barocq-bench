@@ -8,17 +8,17 @@ git clone --recursive git@github.com:HAKarlsson/s3k-barocq-bench.git
 ## Build toolchain
 
 The toolchain required for this benchmarking suite can be built using a docker container.
-The container configuration file is `toolchain/Dockerfile`.
+The container configuration file is `.devcontainer/Dockerfile`.
 
 Build as follows using *rootless* Docker (I have not tested rooted docker):
 ```bash
-docker build -t s3k-toolchain --ssh default toolchain
+docker build -t s3k-toolchain --ssh default .devcontainer 
 ```
 
 The toolchain takes a *very* long time to build.
 Once built, it will give you access to the `riscv64-unknown-elf` toolchain, the `picolibc` library for embedded C, the `barocq` compiler, and `ccomp` (rv64-linux) compiler.
 
-If you are using VS code, use the `devcontainer` plugin to start terminals in the `s3k-toolchain` container. Otherwise, start the container with the `./container.sh` script.
+If you are using VS code, use the `devcontainer` plugin to build and start terminals in the `s3k-toolchain` container. Otherwise, start the container with the `./container.sh` script.
 
 ## Building projects
 

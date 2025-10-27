@@ -1,6 +1,8 @@
 {
     "name" : "s3k-toolchain",
-    "image" : "docker.io/hakarlsson/s3k-toolchain",
+    "build" : {
+        "dockerfile": "Dockerfile"
+    },
     "customizations": {
       "vscode": {
         "extensions": [

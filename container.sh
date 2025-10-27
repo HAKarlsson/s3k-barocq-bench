@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-docker run -it --rm -v .:/workdir -w /workdir hakarlsson/s3k-toolchain
+docker build -t s3k-toolchain --ssh default .devcontainer
+docker run -it --rm -v .:/workdir -w /workdir s3k-toolchain
