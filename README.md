@@ -1,45 +1,77 @@
 # S3K Barocq Benchmarking Suite
 
 Clone the repository with submodules:
+
 ```bash
 git clone --recursive git@github.com:HAKarlsson/s3k-barocq-bench.git
 ```
 
-## Build toolchain
+## Toolchain Setup
 
-The toolchain required for this benchmarking suite can be built using a docker container.
-The container configuration file is `.devcontainer/Dockerfile`.
+This benchmarking suite requires a specialized RISC-V toolchain built within a Docker container. The container configuration is defined in `.devcontainer/Dockerfile`.
 
-Build as follows using *rootless* Docker (I have not tested rooted docker):
+### Prerequisites
+
+- Docker with rootless configuration (recommended)
+- Git with SSH access for the Barocq repository. 
+
+### Building the Toolchain
+
+Build the container with the following command:
+
 ```bash
 docker build -t s3k-toolchain --ssh default .devcontainer 
 ```
 
-The toolchain takes a *very* long time to build.
-Once built, it will give you access to the `riscv64-unknown-elf` toolchain, the `picolibc` library for embedded C, the `barocq` compiler, and `ccomp` (rv64-linux) compiler.
+> **Build Time:** The toolchain compilation is resource-intensive and may take up to an hour to complete.
 
-If you are using VS code, use the `devcontainer` plugin to build and start terminals in the `s3k-toolchain` container. Otherwise, start the container with the `./container.sh` script.
+### Included Components
 
-## Building projects
+The built container provides the following tools:
 
-In the container environment, setup the projects by:
+- **RISC-V Toolchain**: `riscv64-unknown-elf` for cross-compilation
+- **Embedded C Library**: `picolibc` for lightweight embedded development
+- **Barocq Compiler**:
+- **CompCert**: `ccomp` (rv64-linux) compiler
+
+### Container Usage
+
+**VS Code (Recommended)**
+Use the Dev Containers extension to automatically build and launch terminals within the `s3k-toolchain` container environment.
+
+**Command Line**
+Alternatively, build and start the container using:
+
+```bash
+./container.sh
+```
+
+## Building Projects
+
+Once inside the container environment, initialize the project build directories in `build/`:
+
 ```bash
 ./setup.sh qemu
 ```
-to setup the qemu configuration.
 
-This commands will create build directories in `build/`.
+## Running Benchmarks
 
-## Testing the kernels.
+### Hello World Example
 
-Run a simple hello world example:
+Test the basic functionality with a simple hello world program:
+
 ```bash
-./hello.sh barocq qemu
-./hello.sh c qemu
+./hello.sh barocq qemu    # Run with Barocq kernel
+./hello.sh c qemu         # Run with C kernel
 ```
 
-Run the IPC benchmark:
+### IPC Performance Benchmark
+
+Execute the Inter-Process Communication benchmark:
+
 ```bash
-./ipc.sh barocq qemu
-./ipc.sh c qemu
+./ipc.sh barocq qemu      # IPC benchmark with Barocq kernel
+./ipc.sh c qemu           # IPC benchmark with C kernel
 ```
+
+These commands will compile and run the benchmarks, allowing you to compare performance between the Barocq and C kernels.
