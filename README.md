@@ -12,9 +12,8 @@ The container configuration file is `toolchain/Dockerfile`.
 
 Build as follows using *rootless* Docker (I have not tested rooted docker):
 ```bash
-docker build -t hakarlsson/s3k-toolchain --ssh default .
+docker build -t s3k-toolchain --ssh default toolchain
 ```
-Notice the `.` at the end of the command, this should not be omitted.
 
 The toolchain takes a *very* long time to build.
 Once built, it will give you access to the `riscv64-unknown-elf` toolchain, the `picolibc` library for embedded C, the `barocq` compiler, and `ccomp` (rv64-linux) compiler.
