@@ -236,6 +236,12 @@ uint64_t s3k_get_timeout(void)
 	return DO_ECALL(S3K_SYS_GET_INFO, args, sizeof(args.get_info)).val;
 }
 
+uint64_t s3k_get_syscall_handler_rdcycle(void)
+{
+	sys_args_t args = {.get_info = {3}};
+	return DO_ECALL(S3K_SYS_GET_INFO, args, sizeof(args.get_info)).val;
+}
+
 uint64_t s3k_reg_read(s3k_reg_t reg)
 {
 	sys_args_t args = {.reg_read = {reg}};
