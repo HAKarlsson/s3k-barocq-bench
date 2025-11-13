@@ -6,6 +6,16 @@
 #define APP0_PID 0
 #define APP1_PID 1
 
+uint64_t rdcycle() {
+	uint64_t v;
+	__asm__ volatile ("rdcycle %0" : "=r"(v));
+	return v;
+}
+
+void temporal_fence() {
+	__asm__ volatile (".word 0xb");
+}
+
 void setup_uart(uint64_t uart_idx)
 {
 	uint64_t uart_addr = s3k_napot_encode(UART_BASE_ADDR, 0x1000);
@@ -70,25 +80,50 @@ void setup_ipc(uint64_t server, uint64_t tmp)
 	}
 }
 
+// int main(void)
+// {
+// 	// Setup UART access
+// 	setup_uart(10);
+
+// 	// Setup app1 capabilities and PC
+// 	setup_app1(11);
+
+// 	// Setup IPC channel between app0 and app1
+// 	setup_ipc(12, 11);
+
+// 	// Start app1
+// 	s3k_mon_resume(CAP_MONITOR, APP1_PID);
+
+// 	printf("Server: App0 started successfully.\n");
+
+// 	s3k_msg_t msg;
+// 	while (1) {
+// 		msg = (s3k_msg_t){0};
+// 		s3k_reply_t reply = s3k_try_sock_sendrecv(12, &msg);
+// 	}
+// }
+
 int main(void)
 {
-	// Setup UART access
-	setup_uart(10);
+    // Setup UART access
+    setup_uart(10);
 
-	// Setup app1 capabilities and PC
-	setup_app1(11);
+    // Setup app1 capabilities and PC
+    setup_app1(11);
 
-	// Setup IPC channel between app0 and app1
-	setup_ipc(12, 11);
+    // Setup IPC channel between app0 and app1
+    setup_ipc(12, 11);
 
-	// Start app1
-	s3k_mon_resume(CAP_MONITOR, APP1_PID);
+    // Start app1
+    s3k_mon_resume(CAP_MONITOR, APP1_PID);
 
-	printf("Server: App0 started successfully.\n");
+    printf("Server: App0 started successfully.\n");
 
-	s3k_msg_t msg;
-	while (1) {
-		msg = (s3k_msg_t){0};
-		s3k_reply_t reply = s3k_try_sock_sendrecv(12, &msg);
-	}
+    s3k_msg_t msg = (s3k_msg_t){0};
+    while (1) {
+		temporal_fence();
+        msg.data[1] = rdcycle();
+        s3k_reply_t reply = s3k_try_sock_sendrecv(12, &msg);
+        msg.data[0] = rdcycle();
+    }
 }
