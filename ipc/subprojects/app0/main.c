@@ -87,8 +87,10 @@ int main(void)
 	printf("Server: App0 started successfully.\n");
 
 	s3k_msg_t msg;
+	int i = 0;
 	while (1) {
 		msg = (s3k_msg_t){0};
 		s3k_reply_t reply = s3k_try_sock_sendrecv(12, &msg);
+		printf("App0: %d %d %lu\n", ++i, reply.err, s3k_get_syscall_handler_rdcycle());
 	}
 }
