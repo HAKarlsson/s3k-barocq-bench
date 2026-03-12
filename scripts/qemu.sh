@@ -14,5 +14,5 @@ qemu-system-riscv64 \
  -nographic \
  -smp 1 \
  -m 128M \
- -icount 1 \
+ -icount 0 \
  ${DEVICE_ARGS[@]}
