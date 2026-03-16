@@ -1,1 +1,2 @@
 option('plat', type : 'combo', choices : ['qemu_virt', 'cheshire'], value : 'qemu_virt', description : 'Platform name', yield : true)
+option('temporal_fence', type : 'boolean', value : true, yield : true)

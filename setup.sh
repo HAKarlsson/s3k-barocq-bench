@@ -33,3 +33,6 @@ ninja -C build/hello
 
 meson setup build/ipc ipc --optimization=$OPT --buildtype=release --cross-file=$CROSS -Dplat=$PLATFORM
 ninja -C build/ipc
+
+meson setup build/ipc-cold ipc --optimization=$OPT -Dtemporal_fence=true --buildtype=release --cross-file=$CROSS -Dplat=$PLATFORM
+ninja -C build/ipc-cold

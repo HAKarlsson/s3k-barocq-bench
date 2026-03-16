@@ -70,6 +70,12 @@ void setup_ipc(uint64_t server, uint64_t tmp)
 	}
 }
 
+void temporal_fence() {
+#ifdef TEMPORAL_FENCE
+	__asm__ volatile (".word 0xb");
+#endif
+}
+
 int main(void)
 {
 	// Setup UART access
@@ -88,6 +94,7 @@ int main(void)
 
 	s3k_msg_t msg;
 	while (1) {
+		temporal_fence();
 		msg = (s3k_msg_t){0};
 		s3k_reply_t reply = s3k_try_sock_sendrecv(12, &msg);
 	}

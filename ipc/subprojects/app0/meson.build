@@ -17,6 +17,11 @@ plat_c = meson.current_source_dir() / 'plat' / plat + '.c'
 plat_h = meson.current_source_dir() / 'plat' / plat + '.h'
 plat_ld = meson.current_source_dir() / 'plat' / plat + '.ld'
 
+cflags=[]
+if get_option('temporal_fence')
+	cflags+=['-DTEMPORAL_FENCE']
+endif
+
 elf = executable('app0.elf',
 	sources : files(
 		'head.S',
@@ -26,6 +31,7 @@ elf = executable('app0.elf',
 	c_args : [
 		'-include', plat_h,
 		'-specs=picolibc.specs',
+		cflags
 	],
 	link_args : [
 		'-T', plat_ld,
