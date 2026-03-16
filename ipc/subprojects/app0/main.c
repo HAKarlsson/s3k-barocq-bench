@@ -76,6 +76,12 @@ void temporal_fence() {
 #endif
 }
 
+uint64_t rdcycle() {
+	uint64_t v;
+	__asm__ volatile ("rdcycle %0" : "=r"(v));
+	return v;
+}
+
 int main(void)
 {
 	// Setup UART access
@@ -92,10 +98,11 @@ int main(void)
 
 	printf("Server: App0 started successfully.\n");
 
-	s3k_msg_t msg;
+	s3k_msg_t msg = (s3k_msg_t){0};
 	while (1) {
 		temporal_fence();
-		msg = (s3k_msg_t){0};
+		msg.data[1] = rdcycle();
 		s3k_reply_t reply = s3k_try_sock_sendrecv(12, &msg);
+		msg.data[0] = rdcycle();
 	}
 }
