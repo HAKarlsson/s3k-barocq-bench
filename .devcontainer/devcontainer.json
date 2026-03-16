@@ -1,8 +1,10 @@
 {
     "name" : "s3k-toolchain",
     "build" : {
-        "dockerfile": "Dockerfile"
+        "dockerfile": "Dockerfile",
+	      "options": ["--ssh=default"]
     },
+    "runArgs" : ["--network=host"],
     "customizations": {
       "vscode": {
         "extensions": [
