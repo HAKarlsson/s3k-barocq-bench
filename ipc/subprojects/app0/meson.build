@@ -22,6 +22,14 @@ if get_option('temporal_fence')
 	cflags+=['-DTEMPORAL_FENCE']
 endif
 
+if get_option('counter') == 'cycle'
+	cflags+=['-DCOUNTER_CYCLE']
+elif get_option('counter') == 'load'
+	cflags+=['-DCOUNTER_LOAD']
+elif get_option('counter') == 'store'
+	cflags+=['-DCOUNTER_STORE']
+endif
+
 elf = executable('app0.elf',
 	sources : files(
 		'head.S',

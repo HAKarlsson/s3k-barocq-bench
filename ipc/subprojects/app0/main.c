@@ -76,9 +76,17 @@ void temporal_fence() {
 #endif
 }
 
-uint64_t rdcycle() {
+uint64_t rdcounter() {
 	uint64_t v;
-	__asm__ volatile ("rdcycle %0" : "=r"(v));
+#if defined(COUNTER_CYCLE)
+	__asm__ volatile ("csrrs %0,cycle,x0" : "=r"(v));
+#elif defined(COUNTER_LOAD)
+	__asm__ volatile ("csrrs %0,hpmcounter3,x0" : "=r"(v));
+#elif defined(COUNTER_STORE)
+	__asm__ volatile ("csrrs %0,hpmcounter4,x0" : "=r"(v));
+#else
+	v = 0;
+#endif
 	return v;
 }
 
@@ -101,8 +109,8 @@ int main(void)
 	s3k_msg_t msg = (s3k_msg_t){0};
 	while (1) {
 		temporal_fence();
-		msg.data[1] = rdcycle();
+		msg.data[1] = rdcounter();
 		s3k_reply_t reply = s3k_try_sock_sendrecv(12, &msg);
-		msg.data[0] = rdcycle();
+		msg.data[0] = rdcounter();
 	}
 }

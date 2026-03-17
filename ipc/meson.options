@@ -1,2 +1,3 @@
 option('plat', type : 'combo', choices : ['qemu_virt', 'cheshire'], value : 'qemu_virt', description : 'Platform name')
 option('temporal_fence', type : 'boolean', value : false)
+option('counter', type : 'combo', choices : ['cycle', 'load', 'store'], value : 'cycle')
