@@ -70,8 +70,23 @@ ninja -C build/qemu/hello run-barocq	# Run with Barocq kernel
 Execute the Inter-Process Communication benchmark:
 
 ```bash
-ninja -C build/qemu/ipc run-c	# Run with C kernel
+ninja -C build/qemu/ipc run-c		# Run with C kernel
 ninja -C build/qemu/ipc run-barocq	# Run with Barocq kernel
 ```
+
+Run with the Cheshire SoC (after starting OpenOCS and UART connection):
+```bash
+ninja -C build/cheshire/ipc run-c	# Run with C kernel
+ninja -C build/cheshire/ipc run-barocq	# Run with Barocq kernel
+
+ninja -C build/cheshire/ipc-cold run-c 		# Run with C kernel (cold cache)
+ninja -C build/cheshire/ipc-cold run-barocq 	# Run with Barocq kernel (cold cache)
+
+ninja -C build/cheshire/ipc-load run-c 		# Run with C kernel (count loads)
+ninja -C build/cheshire/ipc-load run-barocq 	# Run with Barocq kernel (count loads)
+ninja -C build/cheshire/ipc-store run-c 	# Run with C kernel (count stores)
+ninja -C build/cheshire/ipc-store run-barocq 	# Run with Barocq kernel (count stores)
+```
+
 
 These commands will compile and run the benchmarks, allowing you to compare performance between the Barocq and C kernels.
