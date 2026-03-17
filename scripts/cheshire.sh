@@ -1,15 +1,11 @@
-#!/bin/bash
-
-echo $KERNEL
+#!/usr/bin/env bash
 
 LOAD_ARGS=()
 
-for i in $APPS;
+for i in $@;
 do
 	LOAD_ARGS+=("-ex" "load $i")
 done
-
-LOAD_ARGS+=("-ex" "load $KERNEL")
 
 riscv64-unknown-elf-gdb \
  -ex "set confirm off" \

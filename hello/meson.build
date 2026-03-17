@@ -11,5 +11,12 @@ project(
 	],
 )
 
-subproject('app0')
-subproject('app1')
+s3k_barocq=subproject('s3k-barocq').get_variable('elf')
+s3k_c=subproject('s3k-c').get_variable('elf')
+
+app0=subproject('app0').get_variable('elf')
+app1=subproject('app1').get_variable('elf')
+
+run_script = meson.project_source_root() / 'scripts'/ get_option('plat') + '.sh'
+run_target('run-barocq', command : [run_script, s3k_barocq, app0, app1])
+run_target('run-c', command : [run_script, s3k_c, app0, app1])

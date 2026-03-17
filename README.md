@@ -51,7 +51,7 @@ Alternatively, build and start the container using:
 Once inside the container environment, initialize the project build directories in `build/`:
 
 ```bash
-./setup.sh qemu
+./setup.sh
 ```
 
 ## Running Benchmarks
@@ -61,8 +61,8 @@ Once inside the container environment, initialize the project build directories 
 Test the basic functionality with a simple hello world program:
 
 ```bash
-./hello.sh barocq qemu    # Run with Barocq kernel
-./hello.sh c qemu         # Run with C kernel
+ninja -C build/qemu/hello run-c		# Run with C kernel
+ninja -C build/qemu/hello run-barocq	# Run with Barocq kernel
 ```
 
 ### IPC Performance Benchmark
@@ -70,8 +70,8 @@ Test the basic functionality with a simple hello world program:
 Execute the Inter-Process Communication benchmark:
 
 ```bash
-./ipc.sh barocq qemu      # IPC benchmark with Barocq kernel
-./ipc.sh c qemu           # IPC benchmark with C kernel
+ninja -C build/qemu/ipc run-c	# Run with C kernel
+ninja -C build/qemu/ipc run-barocq	# Run with Barocq kernel
 ```
 
 These commands will compile and run the benchmarks, allowing you to compare performance between the Barocq and C kernels.

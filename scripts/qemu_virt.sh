@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DEVICE_ARGS=()
 
-for i in $APPS
+for i in $@
 do
 	DEVICE_ARGS+=("-device" "loader,file=$i")
 done
@@ -10,7 +10,6 @@ done
 qemu-system-riscv64 \
  -machine virt \
  -bios none \
- -kernel $KERNEL \
  -nographic \
  -smp 1 \
  -m 128M \
